@@ -1,13 +1,9 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
-    "skipLibCheck": true,
+    "skipLibCheck": true /* Skip type checking all .d.ts files. */,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
@@ -18,9 +14,11 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
-  },
-  "include": [
-    "src"
-  ]
+    "jsx": "react-jsx",
+    "outDir": "./dist" /* Specify an output folder for all emitted files. */,
+    "baseUrl": "src", // This sets the base directory (usually 'src'),
+    "paths": {
+      "@/*": ["*"]
+    }
+  }
 }

@@ -1,13 +1,64 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --tmdbDarkBlue : #032541;
+  --tmdbLightBlue: #d5e2ed;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  box-sizing: border-box;
+  margin    : 0;
+  padding   : 0;
+}
+
+#root,
+body,
+.App {
+  height: 100vh;
+}
+
+.grid-layout {
+  display: grid;
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
+  grid-template-rows   : 4rem 1fr 5rem;
+  grid-template-columns: 1fr;
+  height               : 100%;
+}
+
+header {
+  grid-area: header;
+}
+
+main {
+  grid-area : main;
+  background: var(--tmdbLightBlue);
+}
+
+footer {
+  grid-area: footer;
+}
+
+.pagination {
+  display: flex;
+  gap    : 10px;
+}
+
+.pagination .page-item a {
+  height         : 50px;
+  width          : 50px;
+  border         : 1px solid var(--tmdbDarkBlue);
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+}
+
+.pagination .page-item a:hover,
+.pagination .page-item.active a {
+  background: var(--tmdbDarkBlue);
+  color     : white;
 }
