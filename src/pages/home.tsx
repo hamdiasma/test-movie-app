@@ -46,7 +46,7 @@ function Home() {
   }, [page]);
 
   return (
-    <Layout>
+    <Layout title="Home" description="page home | create page home">
       <div className="text-center">
         <h1 className="text-3xl font-bold underline text-primary my-20">
           Hello, Tailwind with React + TypeScript!

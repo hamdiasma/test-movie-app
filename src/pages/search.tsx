@@ -1,18 +1,18 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import apiClient from "../utils/useApi";
 import Layout from "../layout/Layout";
 import Button from "../components/atoms/Button";
 import { IAllData } from "../utils/types";
 import Collection from "../components/molecules/Collection";
 
-const images: string[] = [
-  "Asg2UUwipAdE87MxtJy7SQo08XI",
-  "stKGOm8UyhuLPR9sZLjs5AkmncA",
-  "waPt1Dv5kWhbNna5rTv2NGfeb7O",
-  "VuukZLgaCrho2Ar8Scl9HtV3yD",
-  "6VoxDupaW2VXfLtJyeOoGCgXSjD",
-];
 function Search() {
+  const [images, setImages] = React.useState<string[]>([
+    "Asg2UUwipAdE87MxtJy7SQo08XI",
+    "stKGOm8UyhuLPR9sZLjs5AkmncA",
+    "waPt1Dv5kWhbNna5rTv2NGfeb7O",
+    "VuukZLgaCrho2Ar8Scl9HtV3yD",
+    "6VoxDupaW2VXfLtJyeOoGCgXSjD",
+  ]);
   const [errorMsg, setErrorMsg] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [searchState, setSearchState] = useState<string>("");
@@ -23,7 +23,6 @@ function Search() {
     total_pages: 0,
     total_results: 0,
   });
-  const randomImage = Math.floor(Math.random() * images.length);
 
   const handleSubmitSearch = useCallback(
     async (event: React.FormEvent<HTMLFormElement>) => {
@@ -71,7 +70,6 @@ function Search() {
   const handleScroll = useCallback(() => {
     if (window.scrollY >= document.body.offsetHeight - 15 && !loading) {
       setPage((prevPage) => prevPage + 1);
-      console.log({ page, data: data.page });
 
       if (page > data.page) {
         fetchDataInScroll();
@@ -88,13 +86,20 @@ function Search() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [handleScroll]);
+  const randomImage = useMemo(
+    () => Math.floor(Math.random() * images.length),
+    [images]
+  );
+  const imageUrl = useMemo(() => {
+    return `https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/${images[randomImage]}.jpg`;
+  }, [images, randomImage]);
 
   return (
-    <Layout>
+    <Layout title="Search" description="page search | create page search">
       <section className="relative overflow-hidden h-[500px]">
         <img
           className="absolute top-0 h-full w-full left-0 z-10 object-cover"
-          src={`https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/${images[randomImage]}.jpg`}
+          src={`https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/${imageUrl}.jpg`}
           alt="Searh_page"
         />
         <div className="absolute  h-full w-full  bg-primary opacity-50 top-0 left-0 z-20" />

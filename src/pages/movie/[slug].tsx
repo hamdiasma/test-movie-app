@@ -36,7 +36,6 @@ function ArticleDetails() {
   if (data) {
     const checkDate = new Date(data?.release_date);
     date.current = checkDate.getFullYear();
-    console.log(data);
   }
 
   const renderDetail = () => {
@@ -54,8 +53,9 @@ function ArticleDetails() {
       </>
     );
   };
+  if (!data) return;
   return (
-    <Layout>
+    <Layout title={data?.title} description={data?.overview}>
       {errorMsg && <ErrorComponent msg={errorMsg} />}
       {data && (
         <>
